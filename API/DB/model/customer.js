@@ -1,33 +1,33 @@
-const sequlize = require('../sequelize');
+const sequelize = require('../sequelize');
 const Sequelize = require('sequelize');
 
-const Goods = sequlize.define('goods',{
-    id_goods:{
+const customer = sequelize.define('customer',{
+    id_customer:{
         type:Sequelize.INTEGER,
         autoIncrement:true,
         primaryKey:true,
         allowNull:false
     },
-    type_goods:{
+    name_customer:{
         type:Sequelize.STRING,
         allowNull:false,
     },
-    name_goods:{
+    surname_customer:{
         type:Sequelize.STRING,
         allowNull:false
     },
-    cost_goods:{
-        type:Sequelize.DOUBLE,
-        allowNull:false
-    },
-    country:{
+    patronime_customer:{
         type:Sequelize.STRING,
         allowNull:false
     },
-    disconts:{
-        type:Sequelize.INTEGER,
-        allowNull:true
+    phone_number:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    location:{
+        type:Sequelize.STRING,
+        allowNull:false
     }
 });
 
-module.exports = Goods
+module.exports = customer;
