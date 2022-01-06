@@ -1,0 +1,9 @@
+{
+    "db":{
+        "name_user":"root",
+        "password_db":"1111",
+        "name_db":"shop",
+        "host_db":"localhost",
+        "dialect":"mysql"
+    }
+}

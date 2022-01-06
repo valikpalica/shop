@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const Controller = require('../API/Controller/controller');
 
-router.get('/',(req,res)=>{
-    res.status(200).json({message:'Hello'});
-});
+router.get('/getAllGoods',Controller.getAllGoods);
+router.post('/getGoodById',Controller.getGoodById);
+router.post('/setGood',Controller.setGood);
 
 module.exports = router
