@@ -1,4 +1,6 @@
 const Goods = require('./model/goods');
+const Basket = require('./model/basket');
+const Customer = require('./model/customer');
 
 class Good {
 
@@ -14,8 +16,7 @@ class Good {
                 reject({message:'haven`t goods',status:false});
             }
         }).catch(e=>{
-            console.error(`class Good method getAllGoods error ${e}`);
-            reject({message:new Error(`class Good method getAllGoods error ${e}`)})
+            reject({message:`class Good method getAllGoods error ${e}`})
         })
     });
     getGoodById = ({type_goods}) => new Promise((resolve,reject)=>{
@@ -29,15 +30,53 @@ class Good {
                 reject({message:'haven`t good',status:false});
             }
         }).catch(e=>{
-            console.error(`class Good method getGoodById ${e}`);
-            reject({message:new Error(`class Good method getGoodById ${e}`)})
+            reject({message:`class Good method getGoodById ${e}`})
         })
     });
 
-    
-
-
-
+    Setorder = ({customer_info,packages}) => new Promise((resolve,reject)=>{
+        let {name_customer,surname_customer,patronime_customer,phone_number,location} = customer_info;
+        
+        Customer.create({
+            name_customer,
+            surname_customer,
+            patronime_customer,
+            phone_number,
+            location
+        }).then(data=>{
+            return data.id_customer
+        }).then(customer_id=>{
+            if(packages.length>0){
+                packages.forEach(element => {
+                    Basket.create({
+                        goods_id:element.id,
+                        count_goods:element.count,
+                        customer_id
+                    }).then(data=>{
+                        resolve({message:data,status:true});
+                    }).catch(e=>{
+                        Customer.destroy({where:{
+                            id_customer:customer_id
+                        }}).catch(e=>{
+                            reject({message:`Goods class method setorder destroy Customer error ${e}`,status:false});
+                        });
+                        reject({message:`Goods class method setorder create Basket error ${e}`,status:false});
+                    })
+                });
+            }
+            else{
+                Customer.destroy({where:{
+                    id_customer:customer_id
+                }}).then(data=>{
+                    reject({message:'packages length equal 0',status:false});
+                }).catch(e=>{
+                    reject({message:`Goods class method setorder destroy Customer error ${e}`,status:false});
+                });
+            }
+        }).catch(e=>{
+            reject({message:`Goods class method setorder create Customer  error ${e}`,status:false});
+        })
+    });
     // setGood = (body) =>new Promise((resolve,reject)=>{
     //     try {
     //         let {type_goods,name_goods,cost_goods,country} = body;
@@ -53,7 +92,6 @@ class Good {
     //         reject({message:new Error(`class Good method setGood ${e}`)})
     //     }
     // });
-    
 }
 
 module.exports = new Good();
