@@ -16,13 +16,6 @@ class Controller {
             res.status(400).json({response:e})
         })
     }
-    setGood = (req,res) =>{
-        Goods.setGood(req.body).then(data=>{
-            res.status(200).json({response:data})
-        }).catch(e=>{
-            res.status(400).json({response:e})
-        })
-    }
     setOrder = (req,res) =>{
         Goods.Setorder(req.body).then(data=>{
             res.status(200).json({response:data});

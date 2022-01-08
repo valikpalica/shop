@@ -36,7 +36,6 @@ class Good {
 
     Setorder = ({customer_info,packages}) => new Promise((resolve,reject)=>{
         let {name_customer,surname_customer,patronime_customer,phone_number,location} = customer_info;
-        
         Customer.create({
             name_customer,
             surname_customer,
@@ -77,21 +76,6 @@ class Good {
             reject({message:`Goods class method setorder create Customer  error ${e}`,status:false});
         })
     });
-    // setGood = (body) =>new Promise((resolve,reject)=>{
-    //     try {
-    //         let {type_goods,name_goods,cost_goods,country} = body;
-    //         let discont  = body.hasOwnProperty('discont')? body.discont : null; 
-    //         Goods.create({type_goods,name_goods,cost_goods,country,discont}).then(data=>{
-    //             resolve({message:data,status:true});
-    //         }).catch(e=>{
-    //             console.error(`class Good method setGood ${e}`);
-    //             reject({message:new Error(`class Good method setGood ${e}`)})
-    //         })
-    //     } catch (e) {
-    //         console.error(`class Good method setGood ${e}`);
-    //         reject({message:new Error(`class Good method setGood ${e}`)})
-    //     }
-    // });
 }
 
 module.exports = new Good();
