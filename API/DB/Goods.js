@@ -49,8 +49,8 @@ class Good {
             if(packages.length>0){
                 packages.forEach(element => {
                     Basket.create({
-                        goods_id:element.id,
-                        count_goods:element.count,
+                        goods_id:element.goods_id,
+                        count_goods:element.count_goods,
                         customer_id
                     }).then(data=>{
                         resolve({message:data,status:true});
