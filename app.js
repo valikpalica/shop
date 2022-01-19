@@ -1,12 +1,13 @@
 const express = require('express');
 const startDB = require('./API/DB/connection');
-const router = require('./router/router');
-const admin = require('./adminRouter/router');
+const router = require('./cientResponse/router');
+const admin = require('./admin/router');
 const app = express();
 const cors = require('cors');
 app.set("view engine", "hbs");
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 const PORT = process.env.PORT || 8080
 
 

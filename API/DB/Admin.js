@@ -36,7 +36,7 @@ class Admin {
             reject({message:`Error in class Admin method getAllOrders problem with findAll orders Error: ${e}`});
         })
     })
-    getOrdersById = ({id_customer}) => new Promise((resolve,reject)=>{
+    getOrdersById = (id_customer) => new Promise((resolve,reject)=>{
         Customer.findAll({where:{
             id_customer
         },include:[Basket,Goods]}).then(data=>{
